@@ -1,6 +1,8 @@
 package homework;
 
-public class Particle {
+import java.io.Serializable;
+
+public class Particle implements Serializable {
     protected Point pos;
     protected double radius;
     protected int charge;

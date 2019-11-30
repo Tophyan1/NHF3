@@ -1,8 +1,10 @@
 package homework;
 
+import java.io.Serializable;
+
 import static java.lang.Math.atan2;
 
-public class Point {
+public class Point implements Serializable {
     private int x;
     private int y;
 

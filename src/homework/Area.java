@@ -1,6 +1,8 @@
 package homework;
 
-public class Area {
+import java.io.Serializable;
+
+public class Area implements Serializable {
     private int x = 0;
     private int y = 0;
     private int height = 0;
@@ -28,5 +30,6 @@ public class Area {
     public int getWidth() {
         return width;
     }
+
 
 }

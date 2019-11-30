@@ -1,6 +1,8 @@
 package homework;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
     private String name;
     private int score = 0;
 

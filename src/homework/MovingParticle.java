@@ -1,8 +1,10 @@
 package homework;
 
-public class MovingParticle extends Particle {
+import java.io.Serializable;
+
+public class MovingParticle extends Particle implements Serializable {
     private Point vel;
-    private Point acc;
+    transient private Point acc;
     private double mass;
 
     public MovingParticle(Point pos, int charge, Point vel, Point acc, double mass) {
