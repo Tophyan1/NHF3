@@ -1,18 +1,28 @@
 package homework;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Level {
+public class Level implements Serializable {
     private MovingParticle part;
     transient private LinkedList<Particle> partList;
     private ArrayList<Area> walls;
+    private int levelNumber;
     private Area goal;
-    private int LevelNumber;
     private int tryNumber = 0;
 
     public Level(String fileName) {
-        //TODO
+        part = new MovingParticle();
+        partList = new LinkedList<Particle>();
+        walls = new ArrayList<Area>();
+        goal = new Area();
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
+            load(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public MovingParticle getPart() {
@@ -32,7 +42,7 @@ public class Level {
     }
 
     public int getLevelNumber() {
-        return LevelNumber;
+        return levelNumber;
     }
 
     public int getTryNumber() {
@@ -66,4 +76,27 @@ public class Level {
         }
         return force;
     }
+
+    public void save(ObjectOutputStream out) {
+        try {
+            out.writeObject(this);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void load(ObjectInputStream in) {
+        try {
+            part = (MovingParticle) in.readObject();
+            walls = (ArrayList<Area>) in.readObject();
+            levelNumber = (int) in.readObject();
+            goal = (Area) in.readObject();
+            tryNumber = (int) in.readObject();
+            in.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

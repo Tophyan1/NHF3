@@ -14,6 +14,13 @@ public class MovingParticle extends Particle implements Serializable {
         this.mass = mass;
     }
 
+    public MovingParticle() {
+        super();
+        this.vel = new Point();
+        this.acc = new Point();
+        mass = 0;
+    }
+
     public Point getVel() {
         return vel;
     }

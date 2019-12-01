@@ -15,6 +15,9 @@ public class Area implements Serializable {
         this.width = width;
     }
 
+    public Area() {
+    }
+
     public int getX() {
         return x;
     }
