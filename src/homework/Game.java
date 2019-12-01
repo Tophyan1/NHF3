@@ -3,6 +3,7 @@ package homework;
 import java.io.Serializable;
 
 public class Game implements Serializable {
+    private static final long serialVersionUID = -5420055921745751848L;
     private Player player;
     private Level level;
 

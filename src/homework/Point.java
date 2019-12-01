@@ -5,6 +5,7 @@ import java.io.Serializable;
 import static java.lang.Math.atan2;
 
 public class Point implements Serializable {
+    private static final long serialVersionUID = -3383830271333482425L;
     private int x;
     private int y;
 

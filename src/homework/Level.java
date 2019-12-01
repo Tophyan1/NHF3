@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Level implements Serializable {
+    private static final long serialVersionUID = -7033809998853128898L;
     private MovingParticle part;
     transient private LinkedList<Particle> partList;
     private ArrayList<Area> walls;

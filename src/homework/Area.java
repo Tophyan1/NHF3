@@ -3,6 +3,7 @@ package homework;
 import java.io.Serializable;
 
 public class Area implements Serializable {
+    private static final long serialVersionUID = -5987580276617752782L;
     private int x = 0;
     private int y = 0;
     private int height = 0;

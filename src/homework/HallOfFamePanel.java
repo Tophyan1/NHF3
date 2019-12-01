@@ -1,5 +1,8 @@
 package homework;
 
+//This class was partially generated with JFormDesigner
+//Used heavy cleanup.
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -24,12 +27,6 @@ public class HallOfFamePanel extends JPanel {
 
     public HallOfFamePanel() {
         initComponents();
-    }
-
-    private static void setUpPersonsLabel(JLabel label, String s) {
-        label.setText(s);
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setBackground(Color.black);
     }
 
     private void initComponents() {
@@ -72,14 +69,22 @@ public class HallOfFamePanel extends JPanel {
 
     }
 
+    private static void setUpPersonsLabel(JLabel label, String s) {
+        label.setText(s);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setForeground(Color.white);
+        label.setBackground(Color.black);
+    }
+
     private void readPlayerDataFromText() {
         FileReader fr = null;
         try {
-            fr = new FileReader("HallOfFame.txt");
+            fr = new FileReader("resources/HallOfFame.txt");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         BufferedReader br = new BufferedReader(fr);
+
         for (int i = 0; i < 10; ++i) {
             String line = null;
             try {
@@ -87,9 +92,41 @@ public class HallOfFamePanel extends JPanel {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            String[] fields = line.split(" ", 2);
-            players[i] = new Player(fields[1], Integer.getInteger(fields[0]));
+            String[] fields = line.split(";");
+            players[i] = new Player(fields[1], Integer.parseInt(fields[0]));
         }
+    }
+
+    private void setUpAllPersonsLabels() {
+        //---- label1 ----
+        setUpPersonsLabel(label1, players[0].toString());
+
+        //---- label2 ----
+        setUpPersonsLabel(label2, players[1].toString());
+
+        //---- label3 ----
+        setUpPersonsLabel(label3, players[2].toString());
+
+        //---- label4 ----
+        setUpPersonsLabel(label4, players[3].toString());
+
+        //---- label5 ----
+        setUpPersonsLabel(label5, players[4].toString());
+
+        //---- label6 ----
+        setUpPersonsLabel(label6, players[5].toString());
+
+        //---- label7 ----
+        setUpPersonsLabel(label7, players[6].toString());
+
+        //---- label8 ----
+        setUpPersonsLabel(label8, players[7].toString());
+
+        //---- label9 ----
+        setUpPersonsLabel(label9, players[8].toString());
+
+        //---- label10 ----
+        setUpPersonsLabel(label10, players[9].toString());
     }
 
     private void setUpVerticalGroups(GroupLayout layout) {
@@ -148,38 +185,6 @@ public class HallOfFamePanel extends JPanel {
                                                         .addComponent(label10, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE))))
                                 .addGap(390, 390, 390))
         );
-    }
-
-    private void setUpAllPersonsLabels() {
-        //---- label1 ----
-        setUpPersonsLabel(label1, players[0].toString());
-
-        //---- label2 ----
-        setUpPersonsLabel(label2, players[1].toString());
-
-        //---- label3 ----
-        setUpPersonsLabel(label3, players[2].toString());
-
-        //---- label4 ----
-        setUpPersonsLabel(label4, players[3].toString());
-
-        //---- label5 ----
-        setUpPersonsLabel(label5, players[4].toString());
-
-        //---- label6 ----
-        setUpPersonsLabel(label6, players[5].toString());
-
-        //---- label7 ----
-        setUpPersonsLabel(label7, players[6].toString());
-
-        //---- label8 ----
-        setUpPersonsLabel(label8, players[7].toString());
-
-        //---- label9 ----
-        setUpPersonsLabel(label9, players[8].toString());
-
-        //---- label10 ----
-        setUpPersonsLabel(label10, players[9].toString());
     }
 
 }

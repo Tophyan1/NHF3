@@ -3,6 +3,7 @@ package homework;
 import javax.swing.*;
 import java.awt.*;
 
+
 public class MenuPanel extends JPanel {
     JButton start;
     JButton load;
@@ -14,6 +15,11 @@ public class MenuPanel extends JPanel {
         this.setSize(1280, 720);
         this.setBackground(Color.BLACK);
         this.setLayout(null);
+        setUpButtons();
+
+    }
+
+    private void setUpButtons() {
         start = new JButton("New Game");
         start.setBounds(540, 200, 200, 50);
         this.add(start);

@@ -3,6 +3,7 @@ package homework;
 import java.io.Serializable;
 
 public class Particle implements Serializable {
+    private static final long serialVersionUID = 1178093362037049731L;
     protected Point pos;
     protected double radius;
     protected int charge;

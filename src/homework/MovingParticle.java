@@ -3,6 +3,7 @@ package homework;
 import java.io.Serializable;
 
 public class MovingParticle extends Particle implements Serializable {
+    private static final long serialVersionUID = -7672821855120872004L;
     private Point vel;
     transient private Point acc;
     private double mass;

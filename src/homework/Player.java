@@ -3,6 +3,7 @@ package homework;
 import java.io.Serializable;
 
 public class Player implements Serializable {
+    private static final long serialVersionUID = -1150707591619638389L;
     private String name;
     private int score = 0;
 
@@ -29,6 +30,6 @@ public class Player implements Serializable {
 
     @Override
     public String toString() {
-        return name + " " + score;
+        return score + " " + name;
     }
 }
