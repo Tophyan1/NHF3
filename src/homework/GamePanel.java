@@ -4,12 +4,18 @@ package homework;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class GamePanel extends JPanel {
     JPanel controlPanel;
-    JPanel panel1;
+    ButtonPanel panel1;
     JLabel nameLabel;
     JLabel scoreLabel;
     JLabel triesLAbel;
@@ -20,7 +26,6 @@ public class GamePanel extends JPanel {
     JButton startButton;
     LevelPanel levelPanel;
     Game game;
-    int charge = -1;
 
     public GamePanel() {
         initComponents();
@@ -39,7 +44,7 @@ public class GamePanel extends JPanel {
 
         game = new Game();
         controlPanel = new JPanel();
-        panel1 = new JPanel();
+        panel1 = new ButtonPanel();
         nameLabel = new JLabel();
         scoreLabel = new JLabel();
         triesLAbel = new JLabel();
@@ -92,28 +97,24 @@ public class GamePanel extends JPanel {
         levelPanel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-                game.getLevel().addParticle(new Particle(new Point(mouseEvent.getPoint()), charge));
+                game.getLevel().addParticle(new Particle(new Point(mouseEvent.getPoint()), panel1.charge));
                 levelPanel.repaint();
             }
 
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
-
             }
 
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
-
             }
 
             @Override
             public void mouseEntered(MouseEvent mouseEvent) {
-
             }
 
             @Override
             public void mouseExited(MouseEvent mouseEvent) {
-
             }
         });
 
@@ -223,10 +224,61 @@ public class GamePanel extends JPanel {
                                                                 .addGap(0, 0, Short.MAX_VALUE)))))
                                 .addContainerGap())
         );
+
+        panel1.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+                panel1.charge *= -1;
+                panel1.repaint();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent mouseEvent) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent mouseEvent) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent mouseEvent) {
+            }
+        });
+
+        saveButton.addActionListener(actionEvent -> {
+            FileOutputStream fos = null;
+            try {
+                fos = new FileOutputStream("resources/SaveGame.dat");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            ObjectOutputStream oos = null;
+            try {
+                oos = new ObjectOutputStream(fos);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            game.save(oos);
+        });
+
+
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                game.getLevel().removeLastParticle();
+                levelPanel.repaint();
+            }
+        });
+
     }
 
-    public void updateName() {
+    public void updatePlayerData() {
         initLabel(nameLabel, game.getPlayer().getName());
+        initLabel(scoreLabel, "Score: " + game.getPlayer().getScore());
     }
 
 }

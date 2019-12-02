@@ -2,10 +2,8 @@ package homework;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class LevelPanel extends JPanel implements ActionListener {
+public class LevelPanel extends JPanel {
     Level level;
     java.awt.Point p;
     int charge = -1;
@@ -45,12 +43,5 @@ public class LevelPanel extends JPanel implements ActionListener {
                     (int) particle.radius * 2);
         }
     }
-
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        //TODO
-        repaint();
-    }
-
 
 }

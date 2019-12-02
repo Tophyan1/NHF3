@@ -2,7 +2,13 @@ package homework;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class ChargeFrame extends JFrame {
     MenuPanel menu;
@@ -34,7 +40,7 @@ public class ChargeFrame extends JFrame {
         enterName.button1.addActionListener(actionEvent -> {
             Player player = new Player(enterName.nameTextField.getText());
             gamePanel.game.setPlayer(player);
-            gamePanel.updateName();
+            gamePanel.updatePlayerData();
             layout.next(ChargeFrame.this.getContentPane());
         });
 
@@ -45,6 +51,27 @@ public class ChargeFrame extends JFrame {
             gamePanel.game.reset();
             layout.next(ChargeFrame.this.getContentPane());
             layout.next(ChargeFrame.this.getContentPane());
+        });
+
+        this.menu.load.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                FileInputStream fis = null;
+                try {
+                    fis = new FileInputStream("resources/SaveGame.dat");
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                ObjectInputStream ois = null;
+                try {
+                    ois = new ObjectInputStream(fis);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                gamePanel.game.load(ois);
+                gamePanel.updatePlayerData();
+                layout.last(ChargeFrame.this.getContentPane());
+            }
         });
 
         this.menu.hall.addActionListener(actionEvent -> layout.next(ChargeFrame.this.getContentPane()));
