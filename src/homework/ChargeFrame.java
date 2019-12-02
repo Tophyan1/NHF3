@@ -42,6 +42,7 @@ public class ChargeFrame extends JFrame {
         this.add(gamePanel);
 
         this.menu.start.addActionListener(actionEvent -> {
+            gamePanel.game.reset();
             layout.next(ChargeFrame.this.getContentPane());
             layout.next(ChargeFrame.this.getContentPane());
         });

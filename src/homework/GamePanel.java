@@ -4,6 +4,8 @@ package homework;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class GamePanel extends JPanel {
     JPanel controlPanel;
@@ -16,8 +18,9 @@ public class GamePanel extends JPanel {
     JButton saveButton;
     JButton quitButton;
     JButton startButton;
-    JPanel levelPanel;
+    LevelPanel levelPanel;
     Game game;
+    int charge = -1;
 
     public GamePanel() {
         initComponents();
@@ -34,6 +37,7 @@ public class GamePanel extends JPanel {
 
     private void initComponents() {
 
+        game = new Game();
         controlPanel = new JPanel();
         panel1 = new JPanel();
         nameLabel = new JLabel();
@@ -44,8 +48,8 @@ public class GamePanel extends JPanel {
         saveButton = new JButton();
         quitButton = new JButton();
         startButton = new JButton();
-        levelPanel = new JPanel();
-        game = new Game();
+        levelPanel = new LevelPanel(game.getLevel());
+
 
         //======== this ========
         setPreferredSize(new Dimension(1280, 720));
@@ -85,6 +89,34 @@ public class GamePanel extends JPanel {
                                 .addContainerGap())
         );
 
+        levelPanel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+                game.getLevel().addParticle(new Particle(new Point(mouseEvent.getPoint()), charge));
+                levelPanel.repaint();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent mouseEvent) {
+
+            }
+        });
+
     }
 
     private void controlPanelSetup() {
@@ -120,7 +152,7 @@ public class GamePanel extends JPanel {
         initLabel(triesLAbel, "Tries: " + game.getLevel().getTryNumber());
 
         //---- resetButton ----
-        initButton(resetButton, "Reset");
+        initButton(resetButton, "Remove");
 
         //---- lvlNrLabel ----
         initLabel(lvlNrLabel, "Level " + game.getLevel().getLevelNumber());

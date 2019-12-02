@@ -53,4 +53,9 @@ public class Player implements Serializable {
             e.printStackTrace();
         }
     }
+
+    void reset() {
+        score = 0;
+        name = "";
+    }
 }

@@ -19,6 +19,11 @@ public class Point implements Serializable {
         this.y = y;
     }
 
+    public Point(java.awt.Point p) {
+        this.x = p.x;
+        this.y = p.y;
+    }
+
     public int getX() {
         return x;
     }

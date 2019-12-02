@@ -49,5 +49,9 @@ public class Game implements Serializable {
         level.addParticle(new Particle(p, charge));
     }
 
+    public void reset() {
+        player.reset();
+        level.reset();
+    }
 
 }
