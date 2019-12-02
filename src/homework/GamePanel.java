@@ -1,5 +1,7 @@
 package homework;
 
+//Used JFormDesigner
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -25,7 +27,7 @@ public class GamePanel extends JPanel {
         button.setText(s);
     }
 
-    private static void initLabel(JLabel label, String s) {
+    static void initLabel(JLabel label, String s) {
         label.setText(s);
         label.setForeground(Color.white);
     }
@@ -109,19 +111,19 @@ public class GamePanel extends JPanel {
         }
 
         //---- nameLabel ----
-        initLabel(nameLabel, "PLAYERNAME");
+        initLabel(nameLabel, game.getPlayer().getName());
 
         //---- scoreLabel ----
-        initLabel(scoreLabel, "SCORE");
+        initLabel(scoreLabel, "Score: " + game.getPlayer().getScore());
 
         //---- triesLAbel ----
-        initLabel(triesLAbel, "TRIES");
+        initLabel(triesLAbel, "Tries: " + game.getLevel().getTryNumber());
 
         //---- resetButton ----
         initButton(resetButton, "Reset");
 
         //---- lvlNrLabel ----
-        initLabel(lvlNrLabel, "LEVEL");
+        initLabel(lvlNrLabel, "Level " + game.getLevel().getLevelNumber());
         lvlNrLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         //---- saveButton ----
@@ -189,6 +191,10 @@ public class GamePanel extends JPanel {
                                                                 .addGap(0, 0, Short.MAX_VALUE)))))
                                 .addContainerGap())
         );
+    }
+
+    public void updateName() {
+        initLabel(nameLabel, game.getPlayer().getName());
     }
 
 }

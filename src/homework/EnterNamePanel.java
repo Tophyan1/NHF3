@@ -19,10 +19,10 @@ public class EnterNamePanel extends JPanel {
         button1 = new JButton();
 
         //======== this ========
-        setForeground(Color.white);
+
+        setBackground(Color.black);
 
         //---- nameTextField ----
-        nameTextField.setForeground(Color.white);
 
         //---- label ----
         label.setText("Please Enter Your Name!");
@@ -32,7 +32,6 @@ public class EnterNamePanel extends JPanel {
 
         //---- button1 ----
         button1.setText("OK");
-        button1.setForeground(Color.white);
 
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);

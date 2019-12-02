@@ -1,5 +1,7 @@
 package homework;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Game implements Serializable {
@@ -13,7 +15,7 @@ public class Game implements Serializable {
     }
 
     public Game() {
-        this.player = null;
+        this.player = new Player("");
         this.level = new Level("resources/Levels/Level_1.dat");
     }
 
@@ -33,7 +35,19 @@ public class Game implements Serializable {
         this.level = level;
     }
 
-    public void placeParticle(Point p) {
-        //TODO
+    public void save(ObjectOutputStream out) {
+        player.save(out);
+        level.save(out);
     }
+
+    public void load(ObjectInputStream in) {
+        player.load(in);
+        level.load(in);
+    }
+
+    public void placeParticle(Point p, int charge) {
+        level.addParticle(new Particle(p, charge));
+    }
+
+
 }

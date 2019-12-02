@@ -71,8 +71,8 @@ public class Level implements Serializable {
         partList.add(p);
     }
 
-    void removeParticle(Particle p) {
-        partList.remove(p);
+    void removeLastParticle() {
+        partList.remove(partList.getLast());
     }
 
     public Point sumForce() {

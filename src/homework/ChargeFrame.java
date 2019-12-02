@@ -21,25 +21,30 @@ public class ChargeFrame extends JFrame {
         this.setResizable(false);
         this.setVisible(true);
         menu = new MenuPanel();
-        this.add(menu, "1");
+        this.add(menu);
         menu.exit.addActionListener(actionEvent -> ChargeFrame.this.processWindowEvent(
                 new WindowEvent(ChargeFrame.this, WindowEvent.WINDOW_CLOSING)
         ));
         hallOfFame = new HallOfFamePanel();
-        this.add(hallOfFame, "2");
+        this.add(hallOfFame);
 
         enterName = new EnterNamePanel();
-        this.add(enterName, "3");
+        this.add(enterName);
+
         enterName.button1.addActionListener(actionEvent -> {
-            layout.show(ChargeFrame.this.getContentPane(), "4");
             Player player = new Player(enterName.nameTextField.getText());
             gamePanel.game.setPlayer(player);
+            gamePanel.updateName();
+            layout.next(ChargeFrame.this.getContentPane());
         });
 
         gamePanel = new GamePanel();
-        this.add(gamePanel, "4");
+        this.add(gamePanel);
 
-        this.menu.start.addActionListener(actionEvent -> layout.show(ChargeFrame.this.getContentPane(), "3"));
+        this.menu.start.addActionListener(actionEvent -> {
+            layout.next(ChargeFrame.this.getContentPane());
+            layout.next(ChargeFrame.this.getContentPane());
+        });
 
         this.menu.hall.addActionListener(actionEvent -> layout.next(ChargeFrame.this.getContentPane()));
 

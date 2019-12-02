@@ -1,5 +1,8 @@
 package homework;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Player implements Serializable {
@@ -31,5 +34,23 @@ public class Player implements Serializable {
     @Override
     public String toString() {
         return score + " " + name;
+    }
+
+    public void save(ObjectOutputStream out) {
+        try {
+            out.writeObject(name);
+            out.writeObject(score);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void load(ObjectInputStream in) {
+        try {
+            name = (String) in.readObject();
+            score = (int) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
