@@ -1,8 +1,8 @@
 package homework;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Game implements Serializable {
     private static final long serialVersionUID = -5420055921745751848L;
@@ -52,6 +52,42 @@ public class Game implements Serializable {
     public void reset() {
         player.reset();
         level.reset();
+    }
+
+    public void updateHallOfFame() {
+        ArrayList<Player> players = new ArrayList<>();
+        FileReader fr = null;
+        try {
+            fr = new FileReader("resources/HallOfFame.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        BufferedReader br = new BufferedReader(fr);
+        for (int i = 0; i < 10; ++i) {
+            players.add(new Player(""));
+            players.get(i).loadFromText(br);
+        }
+        try {
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        players.add(this.player);
+        players.sort(Comparator.comparingInt(Player::getScore));
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter("resources/HallOfFame.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (int i = 11; i > 0; --i) {
+            players.get(i).saveToText(fw);
+        }
+        try {
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -1,9 +1,6 @@
 package homework;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 
 public class Player implements Serializable {
     private static final long serialVersionUID = -1150707591619638389L;
@@ -54,8 +51,30 @@ public class Player implements Serializable {
         }
     }
 
-    void reset() {
+    public void reset() {
         score = 0;
         name = "";
     }
+
+    public void loadFromText(BufferedReader br) {
+        String line = null;
+        try {
+            line = br.readLine();
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String[] tokens = line.split(";");
+        this.score = Integer.parseInt(tokens[0]);
+        this.name = tokens[1];
+    }
+
+    public void saveToText(FileWriter fw) {
+        try {
+            fw.write(this.score + ";" + this.name);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
