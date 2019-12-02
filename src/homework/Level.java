@@ -14,16 +14,21 @@ public class Level implements Serializable {
     private int tryNumber = 0;
 
     public Level(String fileName) {
-        part = new MovingParticle();
-        partList = new LinkedList<Particle>();
-        walls = new ArrayList<Area>();
-        goal = new Area();
+
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
             load(in);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Level(MovingParticle part, ArrayList<Area> walls, int levelNumber, Area goal, int tryNumber) {
+        this.part = part;
+        this.walls = walls;
+        this.levelNumber = levelNumber;
+        this.goal = goal;
+        this.tryNumber = tryNumber;
     }
 
     public MovingParticle getPart() {
@@ -80,7 +85,11 @@ public class Level implements Serializable {
 
     public void save(ObjectOutputStream out) {
         try {
-            out.writeObject(this);
+            out.writeObject(this.part);
+            out.writeObject(this.walls);
+            out.writeObject(this.levelNumber);
+            out.writeObject(this.goal);
+            out.writeObject(this.tryNumber);
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,6 +97,10 @@ public class Level implements Serializable {
     }
 
     public void load(ObjectInputStream in) {
+        part = new MovingParticle();
+        partList = new LinkedList<>();
+        walls = new ArrayList<>();
+        goal = new Area();
         try {
             part = (MovingParticle) in.readObject();
             walls = (ArrayList<Area>) in.readObject();

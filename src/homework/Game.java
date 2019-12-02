@@ -12,6 +12,11 @@ public class Game implements Serializable {
         this.level = level;
     }
 
+    public Game() {
+        this.player = null;
+        this.level = new Level("resources/Levels/Level_1.dat");
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -28,5 +33,7 @@ public class Game implements Serializable {
         this.level = level;
     }
 
-
+    public void placeParticle(Point p) {
+        //TODO
+    }
 }

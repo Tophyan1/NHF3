@@ -8,10 +8,10 @@ public class MovingParticle extends Particle implements Serializable {
     transient private Point acc;
     private double mass;
 
-    public MovingParticle(Point pos, int charge, Point vel, Point acc, double mass) {
+    public MovingParticle(Point pos, int charge, Point vel, double mass) {
         super(pos, charge);
         this.vel = vel;
-        this.acc = acc;
+        this.acc = new Point(0, 0);
         this.mass = mass;
     }
 
@@ -36,8 +36,8 @@ public class MovingParticle extends Particle implements Serializable {
 
     public void move(Point force, int t) {
         this.acc = force.scale(1.0 / this.mass);
-        this.vel = this.acc.scale((double) t / 500);
-        this.pos = this.pos.addPoint(this.vel.scale((double) t / 500));
+        this.vel = this.acc.scale(t);
+        this.pos = this.pos.addPoint(this.vel.scale(t));
     }
 
     public boolean collidedWith(Area rect) {
