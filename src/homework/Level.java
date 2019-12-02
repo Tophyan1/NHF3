@@ -114,13 +114,14 @@ public class Level implements Serializable {
         }
     }
 
-    public void reset() {
+    public void reset(String fileName) {
         try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream("resources/Levels/Level_1.dat"));
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
             load(in);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 }

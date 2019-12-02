@@ -4,6 +4,8 @@ package homework;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
@@ -11,7 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements ActionListener {
     JPanel controlPanel;
     ButtonPanel panel1;
     JLabel nameLabel;
@@ -295,4 +297,39 @@ public class GamePanel extends JPanel {
         initLabel(scoreLabel, "Score: " + game.getPlayer().getScore());
     }
 
+    public void play() {
+        Timer timer = new Timer(20, this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        Point force = game.getLevel().sumForce();
+        game.getLevel().getPart().move(force, 20);
+        if (!hitSomething()) {
+            ((Timer) actionEvent.getSource()).stop();
+            try {
+                wait(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            game.getLevel().reset("resources/Level_" + game.getLevel().getLevelNumber());
+        } else {
+            if (game.getLevel().getPart().collidedWith(game.getLevel().getGoal())) {
+                ((Timer) actionEvent.getSource()).stop();
+
+            }
+        }
+
+    }
+
+    private boolean hitSomething() {
+        if (game.getLevel().getPart().pos.getX() > 1275 || game.getLevel().getPart().pos.getX() < 5
+                || game.getLevel().getPart().pos.getY() < 5 || game.getLevel().getPart().pos.getY() > 635)
+            return true;
+        for (Area wall : game.getLevel().getWalls()) {
+            if (game.getLevel().getPart().collidedWith(wall))
+                return true;
+        }
+        return false;
+    }
 }

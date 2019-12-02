@@ -48,7 +48,7 @@ public class ChargeFrame extends JFrame {
         this.add(gamePanel);
 
         this.menu.start.addActionListener(actionEvent -> {
-            gamePanel.game.reset();
+            gamePanel.game.reset("resources/Levels/Level_1.dat");
             layout.next(ChargeFrame.this.getContentPane());
             layout.next(ChargeFrame.this.getContentPane());
         });

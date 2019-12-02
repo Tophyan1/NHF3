@@ -49,9 +49,9 @@ public class Game implements Serializable {
         level.addParticle(new Particle(p, charge));
     }
 
-    public void reset() {
+    public void reset(String fileName) {
         player.reset();
-        level.reset();
+        level.reset(fileName);
     }
 
     public void updateHallOfFame() {
@@ -89,5 +89,15 @@ public class Game implements Serializable {
             e.printStackTrace();
         }
     }
+
+    public void win() {
+        player.addScore(level.scoreUponWin());
+        if (level.getLevelNumber() < 5)
+            level.reset("resources/Level_" + level.getLevelNumber() + 1);
+        else {
+            //TODO
+        }
+    }
+
 
 }
