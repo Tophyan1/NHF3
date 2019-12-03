@@ -1,6 +1,9 @@
 package homework.model;
 
-public class MovableParticle implements PointCharge {
+import java.io.Serializable;
+
+public class MovableParticle implements PointCharge, Serializable {
+    private static final long serialVersionUID = -7115988876897714834L;
     private Point position;
     private double charge;
     private Vector velocity = new Vector(0, 0);
@@ -22,6 +25,10 @@ public class MovableParticle implements PointCharge {
     @Override
     public final Point getPosition() {
         return position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
     }
 
     @Override

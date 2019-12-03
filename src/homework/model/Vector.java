@@ -1,6 +1,9 @@
 package homework.model;
 
-public class Vector {
+import java.io.Serializable;
+
+public class Vector implements Serializable {
+    private static final long serialVersionUID = -9062380910028802700L;
     private double x;
     private double y;
 

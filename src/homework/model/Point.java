@@ -1,6 +1,9 @@
 package homework.model;
 
-public class Point {
+import java.io.Serializable;
+
+public class Point implements Serializable {
+    private static final long serialVersionUID = -610786499705052216L;
     private double x;
     private double y;
 

@@ -1,10 +1,22 @@
 package homework.model;
 
-abstract public class Rectangle implements Collidable {
+import java.io.Serializable;
+
+abstract public class Rectangle implements Collidable, Serializable {
+    private static final long serialVersionUID = 3347780795715416954L;
     protected double x;
     protected double y;
     protected double height;
     protected double width;
+    protected Level level;
+
+    public Rectangle(double x, double y, double height, double width, Level level) {
+        this.x = x;
+        this.y = y;
+        this.height = height;
+        this.width = width;
+        this.level = level;
+    }
 
     public Rectangle(double x, double y, double height, double width) {
         this.x = x;
@@ -27,6 +39,10 @@ abstract public class Rectangle implements Collidable {
 
     public double getWidth() {
         return width;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
     }
 
     @Override
