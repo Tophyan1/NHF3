@@ -8,6 +8,7 @@ public class Game implements Serializable {
     private static final long serialVersionUID = -5420055921745751848L;
     private Player player;
     private Level level;
+    boolean finished = false;
 
     public Game(Player player, Level level) {
         this.player = player;
@@ -90,12 +91,13 @@ public class Game implements Serializable {
         }
     }
 
-    public void win() {
+    public void winLevel() {
         player.addScore(level.scoreUponWin());
         if (level.getLevelNumber() < 5)
-            level.reset("resources/Level_" + level.getLevelNumber() + 1);
+            level.reset("resources/Levels/Level_" + (level.getLevelNumber() + 1) + ".dat");
         else {
-            //TODO
+            updateHallOfFame();
+            finished = true;
         }
     }
 

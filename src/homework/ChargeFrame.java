@@ -73,12 +73,15 @@ public class ChargeFrame extends JFrame {
                 layout.last(ChargeFrame.this.getContentPane());
             }
         });
-
         this.menu.hall.addActionListener(actionEvent -> layout.next(ChargeFrame.this.getContentPane()));
-
         this.hallOfFame.backButton.addActionListener(actionEvent -> layout.previous((ChargeFrame.this.getContentPane())));
-
         this.gamePanel.quitButton.addActionListener(actionEvent -> layout.first(ChargeFrame.this.getContentPane()));
+        this.gamePanel.startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                gamePanel.play();
+            }
+        });
     }
 
 

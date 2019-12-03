@@ -41,9 +41,11 @@ public class Particle implements Serializable {
         if (d == 0) {
             return new Point(0, 0);
         }
-        double mag = 1200 * this.charge * p.charge / (d * d);
+        double mag = 600000 * this.charge * p.charge / (d * d);
         double phi = this.pos.angleTo(p.pos);
-        return new Point((int)(mag * Math.cos(phi)), (int)(mag * Math.sin(phi)));
+        int x = (int) (mag * Math.cos(phi));
+        int y = (int) (mag * Math.sin(phi));
+        return new Point(x, y);
     }
 
     @Override

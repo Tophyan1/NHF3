@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements ActionListener {
     JButton startButton;
     LevelPanel levelPanel;
     Game game;
+    Timer timer;
 
     public GamePanel() {
         initComponents();
@@ -298,24 +299,23 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void play() {
-        Timer timer = new Timer(20, this);
+        timer = new Timer(30, this);
+        timer.start();
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         Point force = game.getLevel().sumForce();
         game.getLevel().getPart().move(force, 20);
-        if (!hitSomething()) {
-            ((Timer) actionEvent.getSource()).stop();
-            try {
-                wait(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            game.getLevel().reset("resources/Level_" + game.getLevel().getLevelNumber());
+        levelPanel.repaint();
+        if (hitSomething()) {
+            timer.stop();
+
+            game.getLevel().reset("resources/Levels/Level_" + game.getLevel().getLevelNumber() + ".dat");
         } else {
             if (game.getLevel().getPart().collidedWith(game.getLevel().getGoal())) {
-                ((Timer) actionEvent.getSource()).stop();
+                timer.stop();
+                game.winLevel();
 
             }
         }

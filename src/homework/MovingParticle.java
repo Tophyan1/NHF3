@@ -26,6 +26,10 @@ public class MovingParticle extends Particle implements Serializable {
         return vel;
     }
 
+    public void setVel(Point vel) {
+        this.vel = vel;
+    }
+
     public Point getAcc() {
         return acc;
     }
@@ -35,9 +39,9 @@ public class MovingParticle extends Particle implements Serializable {
     }
 
     public void move(Point force, int t) {
-        this.acc = force.scale(1.0 / this.mass);
-        this.vel = this.acc.scale(t);
-        this.pos = this.pos.addPoint(this.vel.scale(t));
+        this.acc = Point.scalePoint(force, 1.0 / mass);
+        this.vel.addPoint(this.acc.scale((double) t / 500));
+        this.pos.addPoint(this.vel.scale((double) t / 500));
     }
 
     public boolean collidedWith(Area rect) {

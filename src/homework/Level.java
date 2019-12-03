@@ -104,6 +104,7 @@ public class Level implements Serializable {
         goal = new Area();
         try {
             part = (MovingParticle) in.readObject();
+            part.getVel().scale(100);
             walls = (ArrayList<Area>) in.readObject();
             levelNumber = (int) in.readObject();
             goal = (Area) in.readObject();

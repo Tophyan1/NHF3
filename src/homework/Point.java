@@ -45,16 +45,24 @@ public class Point implements Serializable {
         this.y = p.y;
     }
 
+    public static Point addPoints(Point p1, Point p2) {
+        return new Point(p1.x + p2.x, p1.y + p2.y);
+    }
+
+    public static Point scalePoint(Point p, double d) {
+        return new Point((int) (p.x * d), (int) (p.y * d));
+    }
+
     public Point scale(double d) {
-        return new Point((int)(this.x * d), (int)(this.y * d));
+        this.x *= d;
+        this.y *= d;
+        return this;
     }
 
     public Point addPoint(Point p) {
-        return new Point(this.x + p.x, this.y + p.y);
-    }
-
-    public  Point subtractPoint(Point p) {
-        return new Point(this.x - p.x, this.y - p.y);
+        x += p.x;
+        y += p.y;
+        return this;
     }
 
     @Override
