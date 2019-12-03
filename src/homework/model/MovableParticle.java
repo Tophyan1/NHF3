@@ -3,8 +3,8 @@ package homework.model;
 public class MovableParticle implements PointCharge {
     private Point position;
     private double charge;
-    private Vector velocity;
-    private double mass;
+    private Vector velocity = new Vector(0, 0);
+    private double mass = 1;
     private double radius = 10;
 
     public MovableParticle(Point position, double charge, Vector velocity, double mass) {
@@ -12,6 +12,11 @@ public class MovableParticle implements PointCharge {
         this.charge = charge;
         this.velocity = velocity;
         this.mass = mass;
+    }
+
+    public MovableParticle(Point position, double charge) {
+        this.position = position;
+        this.charge = charge;
     }
 
     @Override
