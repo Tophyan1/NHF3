@@ -1,8 +1,9 @@
 package homework.model;
 
+import java.awt.*;
 import java.io.Serializable;
 
-public class MovableParticle implements PointCharge, Serializable {
+public class MovableParticle implements PointCharge, Serializable, Drawable {
     private static final long serialVersionUID = -7115988876897714834L;
     private Point position;
     private double charge;
@@ -52,5 +53,21 @@ public class MovableParticle implements PointCharge, Serializable {
         Vector acceleration = force.clone().scale(1 / this.mass);
         this.velocity.addVector(acceleration.scale(deltaTime));
         this.position.moveByVector(velocity.clone().scale(deltaTime));
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        Color originalColor = g.getColor();
+        g.setColor(Color.yellow);
+        g.fillOval((int) (position.getX() - radius),
+                (int) (position.getY() - radius),
+                (int) (radius * 2),
+                (int) (radius * 2));
+        g.setColor(Color.black);
+        g.drawOval((int) (position.getX() - radius),
+                (int) (position.getY() - radius),
+                (int) (radius * 2),
+                (int) (radius * 2));
+        g.setColor(originalColor);
     }
 }

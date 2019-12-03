@@ -1,6 +1,8 @@
 package homework.model;
 
-public class Wall extends Rectangle {
+import java.awt.*;
+
+public class Wall extends Rectangle implements Drawable {
 
     private static final long serialVersionUID = 8174863775110098761L;
 
@@ -15,5 +17,13 @@ public class Wall extends Rectangle {
     @Override
     public void onCollide() {
         level.reset();
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        Color originalColor = g.getColor();
+        g.setColor(Color.gray);
+        g.fillRect((int) x, (int) y, (int) height, (int) width);
+        g.setColor(originalColor);
     }
 }

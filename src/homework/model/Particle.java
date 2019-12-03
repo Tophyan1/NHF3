@@ -1,8 +1,11 @@
 package homework.model;
 
-public class Particle implements PointCharge {
-    protected Point position;
-    double charge;
+import java.awt.*;
+
+public class Particle implements PointCharge, Drawable {
+    private final double radius = 10;
+    private Point position;
+    private double charge;
 
 
     public Particle(Point position, double charge) {
@@ -30,5 +33,22 @@ public class Particle implements PointCharge {
     @Override
     public final double getCharge() {
         return charge;
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        Color originalColor = g.getColor();
+        Color chargeColor = charge > 0 ? Color.red : Color.blue;
+        g.setColor(chargeColor);
+        g.fillOval((int) (position.getX() - radius),
+                (int) (position.getY() - radius),
+                (int) (radius * 2),
+                (int) (radius * 2));
+        g.setColor(Color.black);
+        g.drawOval((int) (position.getX() - radius),
+                (int) (position.getY() - radius),
+                (int) (radius * 2),
+                (int) (radius * 2));
+        g.setColor(originalColor);
     }
 }

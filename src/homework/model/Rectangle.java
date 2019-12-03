@@ -2,7 +2,7 @@ package homework.model;
 
 import java.io.Serializable;
 
-abstract public class Rectangle implements Collidable, Serializable {
+abstract public class Rectangle implements Collidable, Serializable, Drawable {
     private static final long serialVersionUID = 3347780795715416954L;
     protected double x;
     protected double y;

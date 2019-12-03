@@ -1,6 +1,8 @@
 package homework.model;
 
-public class Goal extends Rectangle {
+import java.awt.*;
+
+public class Goal extends Rectangle implements Drawable {
 
 
     private static final long serialVersionUID = -1798537072646776227L;
@@ -16,5 +18,13 @@ public class Goal extends Rectangle {
     @Override
     public void onCollide() {
         level.finishLevel();
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        Color originalColor = g.getColor();
+        g.setColor(Color.red);
+        g.fillRect((int) x, (int) y, (int) height, (int) width);
+        g.setColor(originalColor);
     }
 }

@@ -1,10 +1,11 @@
 package homework.model;
 
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Level implements Serializable {
+public class Level implements Serializable, Drawable {
 
     private static final long serialVersionUID = 4695694190538321899L;
     private MovableParticle movableParticle;
@@ -16,12 +17,20 @@ public class Level implements Serializable {
 
     public Level(String fileName) {
         this.load(fileName);
+        initCollidables();
     }
 
     public Level(MovableParticle movableParticle, ArrayList<Collidable> collidables, LinkedList<Particle> particles) {
         this.movableParticle = movableParticle;
         this.collidables = collidables;
         this.particles = particles;
+        initCollidables();
+    }
+
+    private void initCollidables() {
+        for (Collidable collidable : collidables) {
+            collidable.setLevel(this);
+        }
     }
 
     public void pushParticle(Particle p) {
@@ -99,5 +108,20 @@ public class Level implements Serializable {
         particles = new LinkedList<>();
         isFinished = false;
         this.fileName = fileName;
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        movableParticle.draw(g);
+        for (Collidable collidable : collidables) {
+            ((Rectangle) collidable).draw(g);
+        }
+        for (Particle particle : particles) {
+            particle.draw(g);
+        }
+    }
+
+    public int getTryNumber() {
+        return tryNumber;
     }
 }
