@@ -34,6 +34,12 @@ public class Vector {
         return this;
     }
 
+    public Vector addVector(Vector v) {
+        x += v.x;
+        y += v.y;
+        return this;
+    }
+
     public Vector clone() {
         return new Vector(x, y);
     }

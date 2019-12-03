@@ -27,6 +27,12 @@ public class Point {
         return new Vector(p2.x - this.x, p2.y - this.y);
     }
 
+    public Point moveByVector(Vector v) {
+        x += v.getX();
+        y += v.getY();
+        return this;
+    }
+
     public Point clone() {
         return new Point(x, y);
     }
