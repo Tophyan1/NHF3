@@ -24,7 +24,7 @@ public class Goal extends Rectangle implements Drawable {
     public void draw(Graphics g) {
         Color originalColor = g.getColor();
         g.setColor(Color.red);
-        g.fillRect((int) x, (int) y, (int) height, (int) width);
+        g.fillRect((int) x, (int) y, (int) width, (int) height);
         g.setColor(originalColor);
     }
 }

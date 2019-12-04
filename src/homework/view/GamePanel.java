@@ -1,85 +1,113 @@
 package homework.view;
 
-import homework.model.Game;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
-public class GamePanel extends JPanel implements ActionListener {
-    Game game;
-    Timer timer;
-
+public class GamePanel extends JPanel {
+    JPanel controlPanel;
+    JButton removeButton;
+    JButton startButton;
+    JButton saveButton;
+    JButton quitButton;
+    LevelPanel levelPanel;
 
     public GamePanel() {
-        super();
-        this.setBackground(Color.CYAN);
-        game = new Game();
-        timer = new Timer(20, this);
-        addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent keyEvent) {
-            }
+        initComponents();
+    }
 
-            @Override
-            public void keyPressed(KeyEvent keyEvent) {
-                if (keyEvent.getKeyCode() == KeyEvent.VK_SPACE) {
-                    timer.start();
-                }
-            }
+    private void initComponents() {
 
-            @Override
-            public void keyReleased(KeyEvent keyEvent) {
-            }
-        });
+        controlPanel = new JPanel();
+        removeButton = new JButton();
+        startButton = new JButton();
+        saveButton = new JButton();
+        quitButton = new JButton();
+        levelPanel = new LevelPanel();
 
-        this.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent mouseEvent) {
-                if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-                    homework.model.Point p = new homework.model.Point(mouseEvent.getX(), mouseEvent.getY());
-                    game.addParticle(p, +1);
-                }
-                if (mouseEvent.getButton() == MouseEvent.BUTTON3) {
-                    homework.model.Point p = new homework.model.Point(mouseEvent.getX(), mouseEvent.getY());
-                    game.addParticle(p, -1);
-                }
-                GamePanel.this.repaint();
-            }
+        this.
+                //======== this ========
+                        setPreferredSize(new Dimension(1280, 720));
+        setBackground(new Color(187, 187, 187));
 
-            @Override
-            public void mousePressed(MouseEvent mouseEvent) {
 
-            }
+        //======== controlPanel ========
+        {
 
-            @Override
-            public void mouseReleased(MouseEvent mouseEvent) {
+            //---- removeButton ----
+            removeButton.setText("Remove");
 
-            }
+            //---- startButton ----
+            startButton.setText("Start!");
 
-            @Override
-            public void mouseEntered(MouseEvent mouseEvent) {
+            //---- saveButton ----
+            saveButton.setText("Save");
 
-            }
+            //---- quitButton ----
+            quitButton.setText("Quit");
 
-            @Override
-            public void mouseExited(MouseEvent mouseEvent) {
+            GroupLayout controlPanelLayout = new GroupLayout(controlPanel);
+            controlPanel.setLayout(controlPanelLayout);
+            controlPanel.setBackground(Color.black);
+            controlPanelLayout.setHorizontalGroup(
+                    controlPanelLayout.createParallelGroup()
+                            .addGroup(controlPanelLayout.createSequentialGroup()
+                                    .addGap(254, 254, 254)
+                                    .addComponent(removeButton, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(123, 123, 123)
+                                    .addComponent(startButton, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(saveButton, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(quitButton, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+                                    .addContainerGap(276, Short.MAX_VALUE))
+            );
+            controlPanelLayout.setVerticalGroup(
+                    controlPanelLayout.createParallelGroup()
+                            .addGroup(controlPanelLayout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addGroup(controlPanelLayout.createParallelGroup()
+                                            .addComponent(startButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(controlPanelLayout.createSequentialGroup()
+                                                    .addGroup(controlPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                            .addComponent(removeButton, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                                                            .addComponent(saveButton, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                                                            .addComponent(quitButton, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
+                                                    .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addContainerGap())
+            );
+        }
 
-            }
-        });
+        //======== levelPanel ========
+        {
+
+            GroupLayout levelPanelLayout = new GroupLayout(levelPanel);
+            levelPanel.setLayout(levelPanelLayout);
+            levelPanelLayout.setHorizontalGroup(
+                    levelPanelLayout.createParallelGroup()
+                            .addGap(0, 1280, Short.MAX_VALUE)
+            );
+            levelPanelLayout.setVerticalGroup(
+                    levelPanelLayout.createParallelGroup()
+                            .addGap(0, 634, Short.MAX_VALUE)
+            );
+        }
+
+        GroupLayout layout = new GroupLayout(this);
+        setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup()
+                        .addComponent(controlPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(levelPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup()
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(controlPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(levelPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        game.draw(g);
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        game.step(20);
-        if (game.isGameOver() || game.isFailed())
-            timer.stop();
-    }
 }

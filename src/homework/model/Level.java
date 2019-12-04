@@ -1,5 +1,6 @@
 package homework.model;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -11,21 +12,21 @@ public class Level implements Serializable, Drawable {
     private MovableParticle movableParticle;
     private ArrayList<Collidable> collidables;
     private transient LinkedList<Particle> particles;
-    private transient boolean isFinished = false;
-    private transient String fileName;
-    private int tryNumber = 1;
+    public transient String fileName;
+    private transient Timer timer;
+    private transient Game game;
 
     public Level(String fileName) {
         this.load(fileName);
         initCollidables();
     }
 
-    public Level(MovableParticle movableParticle, ArrayList<Collidable> collidables, LinkedList<Particle> particles) {
-        this.movableParticle = movableParticle;
-        this.collidables = collidables;
-        this.particles = particles;
-        initCollidables();
-    }
+//    public Level(MovableParticle movableParticle, ArrayList<Collidable> collidables, LinkedList<Particle> particles) {
+//        this.movableParticle = movableParticle;
+//        this.collidables = collidables;
+//        this.particles = particles;
+//        initCollidables();
+//    }
 
     private void initCollidables() {
         for (Collidable collidable : collidables) {
@@ -37,33 +38,48 @@ public class Level implements Serializable, Drawable {
         particles.add(p);
     }
 
-    public Particle popParticle() {
-        return particles.pop();
+    public void popParticle() {
+        if (!particles.isEmpty()) {
+            particles.removeLast();
+        }
     }
 
     public void step(double deltaTime) {
         Vector force = sumForces();
         movableParticle.move(force, deltaTime);
         checkCollisions();
+        ensureMovableParticleIsInside();
+    }
+
+    private void ensureMovableParticleIsInside() {
+        if (movableParticle.getPosition().getX() > 1280 || movableParticle.getPosition().getX() < 0 ||
+                movableParticle.getPosition().getY() > 640 || movableParticle.getPosition().getY() < 0) {
+            reset();
+        }
     }
 
     public void reset() {
+        timer.stop();
         this.load(fileName);
-        tryNumber++;
-        this.save(fileName);
+        game.addTry();
+        game.addToAllParticles(particles.size());
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public void finishLevel() {
-        isFinished = true;
+        game.addTry();
+        game.addToAllParticles(particles.size());
+        game.nextLevel();
     }
 
-    public boolean isFinished() {
-        return isFinished;
-    }
 
     private void checkCollisions() {
         for (Collidable collidable : collidables) {
             if (collidable.didCollide(movableParticle)) {
+                timer.stop();
                 collidable.onCollide();
             }
         }
@@ -87,7 +103,6 @@ public class Level implements Serializable, Drawable {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(movableParticle);
             oos.writeObject(collidables);
-            oos.writeObject(tryNumber);
             oos.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -95,19 +110,19 @@ public class Level implements Serializable, Drawable {
     }
 
     public void load(String fileName) {
+        particles = new LinkedList<>();
         try {
             FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
             movableParticle = (MovableParticle) ois.readObject();
             collidables = (ArrayList<Collidable>) ois.readObject();
-            tryNumber = (int) ois.readObject();
             ois.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        particles = new LinkedList<>();
-        isFinished = false;
+
         this.fileName = fileName;
+        initCollidables();
     }
 
     @Override
@@ -121,7 +136,7 @@ public class Level implements Serializable, Drawable {
         }
     }
 
-    public int getTryNumber() {
-        return tryNumber;
+    public void setTimer(Timer timer) {
+        this.timer = timer;
     }
 }
