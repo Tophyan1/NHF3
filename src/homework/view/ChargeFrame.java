@@ -10,15 +10,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 
 public class ChargeFrame extends JFrame {
 
     private CardLayout layout;
     private GamePanel gamePanel;
+    private HallOfFamePanel hallOfFamePanel;
 
 
     public ChargeFrame() throws HeadlessException {
@@ -33,7 +32,26 @@ public class ChargeFrame extends JFrame {
         gamePanel = new GamePanel();
         this.add(gamePanel);
         gamePanel.levelPanel.owner = this;
+        hallOfFamePanel = new HallOfFamePanel();
+        this.add(hallOfFamePanel);
         AddListeners(menuPanel);
+    }
+
+    public void getIntoHallOfFame(int score) {
+        winDialog dialog = new winDialog(this);
+        dialog.setVisible(true);
+
+        dialog.OKButton.addActionListener(actionEvent -> {
+            String playerName = dialog.nameField.getText();
+            Player currentPlayer = new Player(playerName, score);
+            ArrayList<Player> hallOfFame = Player.readHallOfFame();
+            hallOfFame.add(currentPlayer);
+            Player.writeHallOfFame(hallOfFame);
+            layout.first(ChargeFrame.this.getContentPane());
+            dialog.dispose();
+        });
+
+
     }
 
     private void AddListeners(MenuPanel menuPanel) {
@@ -63,7 +81,10 @@ public class ChargeFrame extends JFrame {
             }
         });
 
-        this.gamePanel.quitButton.addActionListener(actionEvent -> layout.previous(ChargeFrame.this.getContentPane()));
+        this.gamePanel.quitButton.addActionListener(actionEvent -> {
+            gamePanel.levelPanel.timer.stop();
+            layout.previous(ChargeFrame.this.getContentPane());
+        });
 
         this.gamePanel.saveButton.addActionListener(actionEvent -> gamePanel.levelPanel.game.save("resources/SaveGame.dat"));
 
@@ -78,6 +99,13 @@ public class ChargeFrame extends JFrame {
             gamePanel.levelPanel.game.getCurrentLevel().setTimer(gamePanel.levelPanel.timer);
             gamePanel.levelPanel.timer.start();
         });
+
+        menuPanel.hallOfFameButton.addActionListener(actionEvent -> {
+            hallOfFamePanel.showHallOfFame();
+            layout.last(ChargeFrame.this.getContentPane());
+        });
+
+        this.hallOfFamePanel.backButton.addActionListener(actionEvent -> layout.first(ChargeFrame.this.getContentPane()));
     }
 
     private void addMouseListenerToLevelPanel() {
@@ -95,13 +123,6 @@ public class ChargeFrame extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
-                Point p = new Point(mouseEvent.getX(), mouseEvent.getY());
-                if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-                    gamePanel.levelPanel.game.getCurrentLevel().pushParticle(new Particle(p, 1e-5));
-                } else if (mouseEvent.getButton() == MouseEvent.BUTTON3) {
-                    gamePanel.levelPanel.game.getCurrentLevel().pushParticle(new Particle(p, -1e-5));
-                }
-                gamePanel.repaint();
             }
 
             @Override
@@ -116,54 +137,5 @@ public class ChargeFrame extends JFrame {
             public void mouseExited(MouseEvent mouseEvent) {
             }
         });
-    }
-
-    public void getIntoHallOfFame(int score) {
-        winDialog dialog = new winDialog(this);
-        dialog.setVisible(true);
-
-        dialog.OKButton.addActionListener(actionEvent -> {
-            String playerName = dialog.nameField.getText();
-
-            Player currentPlayer = new Player(playerName, score);
-            ArrayList<Player> hallOfFame = new ArrayList<>();
-            FileReader fr = null;
-            try {
-                fr = new FileReader("resources/HallOfFame.txt");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            BufferedReader br = new BufferedReader(fr);
-            for (int i = 0; i < 10; ++i) {
-                Player p = new Player("", 0);
-                p.loadFromText(br);
-                hallOfFame.add(p);
-            }
-            try {
-                br.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            hallOfFame.add(currentPlayer);
-            hallOfFame.sort(Comparator.comparingInt(player -> -player.score));
-
-            FileWriter fw = null;
-            try {
-                fw = new FileWriter("resources/HallOfFame.txt");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            for (int i = 0; i < 10; ++i) {
-                hallOfFame.get(i).saveToText(fw);
-            }
-            try {
-                fw.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            dialog.dispose();
-        });
-
-
     }
 }
