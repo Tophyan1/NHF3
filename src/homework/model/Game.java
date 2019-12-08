@@ -102,8 +102,6 @@ public class Game implements Drawable, Serializable {
     }
 
     public int getScore() {
-        System.out.println(tries);
-        System.out.println(numberOfAllParticles);
         return (50 / tries) * (30000 + (210 - numberOfAllParticles) * 500);
     }
 

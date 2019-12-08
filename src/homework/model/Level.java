@@ -18,15 +18,7 @@ public class Level implements Serializable, Drawable {
 
     public Level(String fileName) {
         this.load(fileName);
-        initCollidables();
     }
-
-//    public Level(MovableParticle movableParticle, ArrayList<Collidable> collidables, LinkedList<Particle> particles) {
-//        this.movableParticle = movableParticle;
-//        this.collidables = collidables;
-//        this.particles = particles;
-//        initCollidables();
-//    }
 
     private void initCollidables() {
         for (Collidable collidable : collidables) {
@@ -74,7 +66,6 @@ public class Level implements Serializable, Drawable {
         game.addToAllParticles(particles.size());
         game.nextLevel();
     }
-
 
     private void checkCollisions() {
         for (Collidable collidable : collidables) {

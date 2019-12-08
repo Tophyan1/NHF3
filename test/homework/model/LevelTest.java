@@ -14,6 +14,8 @@ public class LevelTest {
         level = new Level("resources/Levels/Level_2.dat");
         Timer t = new Timer(20, null);
         level.setTimer(t);
+        Game g = new Game();
+        level.setGame(g);
     }
 
     @Test
