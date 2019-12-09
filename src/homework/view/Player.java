@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+
+/**
+ * A class perpesenting a player, having a name and a score
+ */
 public class Player {
 
     String name;
@@ -22,6 +26,11 @@ public class Player {
         return score + " " + name;
     }
 
+    /**
+     * Returns a list of players currently in the Hall of Fame
+     *
+     * @return the list of Champions in the Hall of Fame
+     */
     public static ArrayList<Player> readHallOfFame() {
         ArrayList<Player> hallOfFame = new ArrayList<>();
         try {
@@ -39,6 +48,11 @@ public class Player {
         return hallOfFame;
     }
 
+    /**
+     * Writes the top 10 players to the Hall of Fame
+     *
+     * @param hallOfFame the list of players who competed
+     */
     public static void writeHallOfFame(ArrayList<Player> hallOfFame) {
         hallOfFame.sort(Comparator.comparingInt(player -> -player.score));
         try {
@@ -52,6 +66,11 @@ public class Player {
         }
     }
 
+    /**
+     * Saves the player to a text file
+     *
+     * @param fw the file stream
+     */
     public void saveToText(FileWriter fw) {
         try {
             fw.write(this.score + ";" + this.name + "\n");
@@ -60,6 +79,11 @@ public class Player {
         }
     }
 
+    /**
+     * Loads the player from a text file
+     *
+     * @param br the file stream
+     */
     public void loadFromText(BufferedReader br) {
         String line = null;
         try {

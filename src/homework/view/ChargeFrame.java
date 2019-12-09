@@ -12,7 +12,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-
+/**
+ * The main Frame of the game
+ */
 public class ChargeFrame extends JFrame {
 
     private CardLayout layout;
@@ -37,6 +39,11 @@ public class ChargeFrame extends JFrame {
         AddListeners(menuPanel);
     }
 
+    /**
+     * Checks if the current player can enter the Hall of Fame upon winning the game, and places Him/Her accordingly
+     *
+     * @param score
+     */
     public void getIntoHallOfFame(int score) {
         winDialog dialog = new winDialog(this);
         dialog.setVisible(true);
@@ -54,6 +61,11 @@ public class ChargeFrame extends JFrame {
 
     }
 
+    /**
+     * Adds ActionListeners to all of the buttons of the game
+     *
+     * @param menuPanel the panel of the main menu
+     */
     private void AddListeners(MenuPanel menuPanel) {
 
         menuPanel.exitButton.addActionListener(actionEvent -> ChargeFrame.this.processWindowEvent(
@@ -108,6 +120,9 @@ public class ChargeFrame extends JFrame {
         this.hallOfFamePanel.backButton.addActionListener(actionEvent -> layout.first(ChargeFrame.this.getContentPane()));
     }
 
+    /**
+     * Adds MouseListener to the LevelPanel
+     */
     private void addMouseListenerToLevelPanel() {
         this.gamePanel.levelPanel.addMouseListener(new MouseListener() {
             @Override

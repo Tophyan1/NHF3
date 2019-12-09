@@ -7,7 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * A panel that shows the current game
+ */
 public class LevelPanel extends JPanel implements ActionListener {
 
     ChargeFrame owner;
@@ -20,12 +22,22 @@ public class LevelPanel extends JPanel implements ActionListener {
         timer = new Timer(20, this);
     }
 
+    /**
+     * Draws the gaem
+     *
+     * @param g the Graphics object used to draw
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         game.getCurrentLevel().draw(g);
     }
 
+    /**
+     * Steps the game upon a Timer tick
+     *
+     * @param actionEvent the Timer's tick
+     */
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         game.step(0.02);

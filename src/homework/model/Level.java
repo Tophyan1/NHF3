@@ -6,6 +6,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * A class representong a level in the game
+ */
 public class Level implements Serializable, Drawable {
 
     private static final long serialVersionUID = 4695694190538321899L;
@@ -16,26 +19,47 @@ public class Level implements Serializable, Drawable {
     private transient Timer timer;
     private transient Game game;
 
+    /**
+     * Creates a Level from a file whose name is given as a parameter
+     *
+     * @param fileName the name of the file
+     */
     public Level(String fileName) {
         this.load(fileName);
     }
 
+    /**
+     * Sets the Collidable objects' level attributes to this
+     */
     private void initCollidables() {
         for (Collidable collidable : collidables) {
             collidable.setLevel(this);
         }
     }
 
+    /**
+     * Pushes a particle into the list of particles placed
+     *
+     * @param p the particle to be pushed
+     */
     public void pushParticle(Particle p) {
         particles.add(p);
     }
 
+    /**
+     * Removes the last particle from the placed list
+     */
     public void popParticle() {
         if (!particles.isEmpty()) {
             particles.removeLast();
         }
     }
 
+    /**
+     * Moves the level by a given time
+     *
+     * @param deltaTime the time period
+     */
     public void step(double deltaTime) {
         Vector force = sumForces();
         movableParticle.move(force, deltaTime);
@@ -43,6 +67,9 @@ public class Level implements Serializable, Drawable {
         ensureMovableParticleIsInside();
     }
 
+    /**
+     * Resets the level if the particle has left the active area
+     */
     private void ensureMovableParticleIsInside() {
         if (movableParticle.getPosition().getX() > 1280 || movableParticle.getPosition().getX() < 0 ||
                 movableParticle.getPosition().getY() > 640 || movableParticle.getPosition().getY() < 0) {
@@ -50,6 +77,9 @@ public class Level implements Serializable, Drawable {
         }
     }
 
+    /**
+     * Reloads the level to its original state
+     */
     public void reset() {
         timer.stop();
         this.load(fileName);
@@ -57,16 +87,27 @@ public class Level implements Serializable, Drawable {
         game.addToAllParticles(particles.size());
     }
 
+    /**
+     * Sets the game whose level this is
+     *
+     * @param game the owner game
+     */
     public void setGame(Game game) {
         this.game = game;
     }
 
+    /**
+     * finalises the level upon the moving particle reaches the goal
+     */
     public void finishLevel() {
         game.addTry();
         game.addToAllParticles(particles.size());
         game.nextLevel();
     }
 
+    /**
+     * Checks if the moving particle has collided with anything, and acts accordingly
+     */
     private void checkCollisions() {
         for (Collidable collidable : collidables) {
             if (collidable.didCollide(movableParticle)) {
@@ -76,6 +117,11 @@ public class Level implements Serializable, Drawable {
         }
     }
 
+    /**
+     * Calculates the force vector that all the placed particles exert on the moving one
+     *
+     * @return the force vector
+     */
     private Vector sumForces() {
         Vector force = new Vector(0, 0);
         for (Particle particle : particles) {
@@ -84,10 +130,20 @@ public class Level implements Serializable, Drawable {
         return force;
     }
 
+    /**
+     * Gets the movable particle
+     *
+     * @return the movable particle
+     */
     public MovableParticle getMovableParticle() {
         return movableParticle;
     }
 
+    /**
+     * Saves the level to a file given by name as a parameter
+     *
+     * @param fileName the name of the file
+     */
     public void save(String fileName) {
         try {
             FileOutputStream fos = new FileOutputStream(fileName);
@@ -100,6 +156,11 @@ public class Level implements Serializable, Drawable {
         }
     }
 
+    /**
+     * Loads the game from a given file
+     *
+     * @param fileName the name of the file
+     */
     public void load(String fileName) {
         particles = new LinkedList<>();
         try {
@@ -116,6 +177,11 @@ public class Level implements Serializable, Drawable {
         initCollidables();
     }
 
+    /**
+     * Draws the level on a canvas
+     *
+     * @param g the Graphics object used to draw
+     */
     @Override
     public void draw(Graphics g) {
         movableParticle.draw(g);
@@ -127,6 +193,11 @@ public class Level implements Serializable, Drawable {
         }
     }
 
+    /**
+     * sets the timer that ticks
+     *
+     * @param timer the timer
+     */
     public void setTimer(Timer timer) {
         this.timer = timer;
     }

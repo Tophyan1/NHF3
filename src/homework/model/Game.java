@@ -4,7 +4,9 @@ import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
-
+/**
+ * A class representing a full game
+ */
 public class Game implements Drawable, Serializable {
     private static final long serialVersionUID = -2363365680917184571L;
     private transient ArrayList<Level> levels;
@@ -18,6 +20,9 @@ public class Game implements Drawable, Serializable {
         setUpLevels();
     }
 
+    /**
+     * Loads the game from the input files
+     */
     private void setUpLevels() {
         levels = new ArrayList<>();
         Level level1 = new Level("resources/Levels/Level_1.dat");
@@ -35,23 +40,48 @@ public class Game implements Drawable, Serializable {
         }
     }
 
+    /**
+     * Steps the game, stepping the current level
+     *
+     * @param deltaTime the time period the games moves through
+     */
     public void step(double deltaTime) {
         levels.get(currentLevelIndex).step(deltaTime);
     }
 
+    /**
+     * Draws the game's current state on a canvas
+     *
+     * @param g the Graphics object used to draw
+     */
     @Override
     public void draw(Graphics g) {
         levels.get(currentLevelIndex).draw(g);
     }
 
+    /**
+     * Checks if the game is finished
+     *
+     * @return true if the game is won, false otherwise
+     */
     public boolean isGameOver() {
         return isGameOver;
     }
 
+    /**
+     * Checks if the game has more levels
+     *
+     * @return false if the game is at the last level, true otherwise
+     */
     private boolean hasMoreLevels() {
         return currentLevelIndex < levels.size() - 1;
     }
 
+    /**
+     * Saves the game to a parameter file
+     *
+     * @param fileName the name of the file
+     */
     public void save(String fileName) {
         try {
             FileOutputStream fos = new FileOutputStream(fileName);
@@ -65,6 +95,11 @@ public class Game implements Drawable, Serializable {
         }
     }
 
+    /**
+     * Loads the game from a parameter file
+     *
+     * @param fileName the name of the file
+     */
     public void load(String fileName) {
         try {
             FileInputStream fis = new FileInputStream(fileName);
@@ -80,10 +115,18 @@ public class Game implements Drawable, Serializable {
         isGameOver = false;
     }
 
+    /**
+     * Gets the current level
+     *
+     * @return the current level
+     */
     public Level getCurrentLevel() {
         return levels.get(currentLevelIndex);
     }
 
+    /**
+     * Sets the current level to the next in line
+     */
     public void nextLevel() {
         if (hasMoreLevels()) {
             currentLevelIndex++;
@@ -93,14 +136,27 @@ public class Game implements Drawable, Serializable {
         }
     }
 
+    /**
+     * Adds one to the tries
+     */
     public void addTry() {
         tries += 1;
     }
 
+    /**
+     * Adds to the number of particles placed during the course of the game
+     *
+     * @param number the number to add
+     */
     public void addToAllParticles(int number) {
         numberOfAllParticles += number;
     }
 
+    /**
+     * Calculates the score of the player upon winning the game
+     *
+     * @return the score
+     */
     public int getScore() {
         return (50 / tries) * (30000 + (210 - numberOfAllParticles) * 500);
     }

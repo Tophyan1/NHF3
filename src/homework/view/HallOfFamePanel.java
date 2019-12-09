@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * A panel that shows sthe Hall of Fame
+ */
 public class HallOfFamePanel extends JPanel {
 
     JLabel title;
@@ -19,6 +22,9 @@ public class HallOfFamePanel extends JPanel {
     }
 
 
+    /**
+     * Shows the list of players currently in the Hall of Fame
+     */
     public void showHallOfFame() {
         DefaultListModel<String> listModel = new DefaultListModel<>();
         ArrayList<Player> list = Player.readHallOfFame();
@@ -36,12 +42,18 @@ public class HallOfFamePanel extends JPanel {
         this.add(champList);
     }
 
+    /**
+     * Initialises the Back button
+     */
     private void initButton() {
         backButton = new JButton("Back");
         backButton.setBounds(600, 590, 80, 30);
         this.add(backButton);
     }
 
+    /**
+     * Initialises the Title of the panel
+     */
     private void initTitle() {
         title = new JLabel("Hall Of Fame");
         title.setBackground(Color.black);

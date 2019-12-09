@@ -3,6 +3,9 @@ package homework.view;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Dialog window notifying the player that (s)he won
+ */
 public class winDialog extends JDialog {
     JTextField nameField;
     JButton OKButton;
@@ -14,6 +17,9 @@ public class winDialog extends JDialog {
         initComponents();
     }
 
+    /**
+     * Initialises the components
+     */
     private void initComponents() {
         nameField = new JTextField();
         OKButton = new JButton();

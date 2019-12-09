@@ -2,6 +2,9 @@ package homework.model;
 
 import java.awt.*;
 
+/**
+ * A class representing the goal area of the level
+ */
 public class Goal extends Rectangle implements Drawable {
 
 
@@ -15,11 +18,19 @@ public class Goal extends Rectangle implements Drawable {
         super(x, y, height, width);
     }
 
+    /**
+     * Finishes the level upon collision
+     */
     @Override
     public void onCollide() {
         level.finishLevel();
     }
 
+    /**
+     * Draws the goal area on the field
+     *
+     * @param g the Graphics object used to draw
+     */
     @Override
     public void draw(Graphics g) {
         Color originalColor = g.getColor();

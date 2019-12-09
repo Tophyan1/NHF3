@@ -3,6 +3,9 @@ package homework.view;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A panel consisting of a control panel and the level panel
+ */
 public class GamePanel extends JPanel {
     JPanel controlPanel;
     JButton removeButton;
@@ -15,6 +18,10 @@ public class GamePanel extends JPanel {
         initComponents();
     }
 
+    /**
+     * Initialises the components
+     * Used JFormDesigner to generate code
+     */
     private void initComponents() {
 
         controlPanel = new JPanel();
