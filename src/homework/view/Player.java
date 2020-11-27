@@ -40,8 +40,8 @@ public class Player {
                 Player p = new Player("", 0);
                 p.loadFromText(br);
                 hallOfFame.add(p);
-                br.close();
             }
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
