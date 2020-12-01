@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * A panel that shows sthe Hall of Fame
+ * A panel that shows the Hall of Fame
  */
 public class HallOfFamePanel extends JPanel {
 
