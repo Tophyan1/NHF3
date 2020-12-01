@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>homework.view</OriginalElement>
+  <nodes>
+    <node x="821.3181818181818" y="0.0">homework.view.Player</node>
+    <node x="507.3181818181818" y="24.0">homework.view.LevelPanel</node>
+    <node x="785.6193181818182" y="305.0">homework.view.HallOfFamePanel</node>
+    <node x="506.0" y="293.0">homework.view.GamePanel</node>
+    <node x="223.0" y="269.0">homework.view.MenuPanel</node>
+    <node x="0.0" y="317.0">homework.view.winDialog</node>
+    <node x="508.0" y="616.0">homework.view.ChargeFrame</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="homework.view.ChargeFrame" target="homework.view.Player">
+      <point x="113.09090909090912" y="-97.5" />
+      <point x="776.5909090909091" y="586.0" />
+      <point x="1027.1193181818182" y="586.0" />
+      <point x="1027.1193181818182" y="244.0" />
+      <point x="986.3181818181818" y="244.0" />
+      <point x="0.0" y="109.5" />
+    </edge>
+    <edge source="homework.view.LevelPanel" target="homework.view.ChargeFrame">
+      <point x="98.0" y="85.5" />
+      <point x="752.3181818181818" y="244.0" />
+      <point x="737.8181818181819" y="244.0" />
+      <point x="737.8181818181819" y="556.0" />
+      <point x="691.7727272727273" y="556.0" />
+      <point x="28.272727272727252" y="-97.5" />
+    </edge>
+    <edge source="homework.view.GamePanel" target="homework.view.LevelPanel">
+      <point x="-52.5" y="-109.5" />
+      <point x="558.5" y="244.0" />
+      <point x="556.3181818181818" y="244.0" />
+      <point x="-98.0" y="85.5" />
+    </edge>
+    <edge source="homework.view.ChargeFrame" target="homework.view.GamePanel">
+      <point x="-28.272727272727252" y="-97.5" />
+      <point x="635.2272727272727" y="556.0" />
+      <point x="558.5" y="556.0" />
+      <point x="-52.5" y="109.5" />
+    </edge>
+    <edge source="homework.view.ChargeFrame" target="homework.view.winDialog">
+      <point x="-141.36363636363637" y="-97.5" />
+      <point x="522.1363636363636" y="596.0" />
+      <point x="50.75" y="596.0" />
+      <point x="-50.75" y="85.5" />
+    </edge>
+    <edge source="homework.view.ChargeFrame" target="homework.view.HallOfFamePanel">
+      <point x="84.81818181818181" y="-97.5" />
+      <point x="748.3181818181819" y="576.0" />
+      <point x="946.1193181818182" y="576.0" />
+      <point x="53.5" y="97.5" />
+    </edge>
+    <edge source="homework.view.ChargeFrame" target="homework.view.MenuPanel">
+      <point x="-56.54545454545456" y="-97.5" />
+      <point x="606.9545454545455" y="566.0" />
+      <point x="420.25" y="566.0" />
+      <point x="65.75" y="133.5" />
+    </edge>
+    <edge source="homework.view.HallOfFamePanel" target="homework.view.Player">
+      <point x="0.0" y="-97.5" />
+      <point x="892.6193181818182" y="244.0" />
+      <point x="876.3181818181818" y="244.0" />
+      <point x="-110.0" y="109.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7000000000000001" x="259.0" y="311.2857142857142" />
+  <SelectedNodes>
+    <node>homework.view.Player</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

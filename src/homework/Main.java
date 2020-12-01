@@ -1,11 +1,10 @@
 package homework;
 
+import homework.view.ChargeFrame;
 
 public class Main {
 
     public static void main(String[] args) {
-        ChargeFrame charge = new ChargeFrame();
-
-
+        ChargeFrame chargeFrame = new ChargeFrame();
     }
 }
